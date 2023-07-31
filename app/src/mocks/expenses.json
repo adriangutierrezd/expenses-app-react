@@ -1,0 +1,22 @@
+{
+    "expenses": [
+        {
+            "id": 432432421421,
+            "name": "Groceries",
+            "description": "Vegetables, jam and juice",
+            "amount": 14.95,
+            "categoryId": 10,
+            "date": "2023-08-01",
+            "userId": 9911
+        },
+        {
+            "id": 23412355,
+            "name": "Gas",
+            "description": null,
+            "amount": 94.95,
+            "categoryId": 11,
+            "date": "2023-08-02",
+            "userId": 9911
+        }
+    ]
+}
