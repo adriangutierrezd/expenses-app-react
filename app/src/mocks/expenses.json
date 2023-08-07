@@ -1,51 +1,4 @@
 {
-    "expenses2": [
-        {
-            "category":"Food",
-            "amount":345.23,
-            "color":"#FFA533",
-            "date": "2023-07-22T11:13:15.007+00:00",
-            "user": 1,
-            "name": "Groceries",
-            "description": "General weekly groceries"
-         },
-         {
-            "category":"Car",
-            "amount": 45.23,
-            "color":"#33FF42",
-            "date": "2023-07-22T11:13:15.007+00:00",
-            "user": 1,
-            "name": "Oil change",
-            "description": null
-         },
-         {
-            "category":"Supplies",
-            "amount": 35.04,
-            "color":"#9033FF",
-            "date": "2023-07-22T11:13:15.007+00:00",
-            "user": 1,
-            "name": "Water bill",
-            "description": ""
-         },
-         {
-            "category":"Supplies",
-            "amount": 25.83,
-            "color":"#9033FF",
-            "date": "2023-07-22T11:13:15.007+00:00",
-            "user": 1,
-            "name": "Gas bill",
-            "description": ""
-         },
-         {
-            "category":"Car",
-            "amount":45.23,
-            "color":"#33FF42",
-            "date": "2023-07-22T11:13:15.007+00:00",
-            "user": 2,
-            "name": "Oil change",
-            "description": ""
-         }
-    ],
     "expenses": [
       {
           "category": {
@@ -75,7 +28,7 @@
          "category": {
             "id": 4,
             "color": "#9033FF",
-            "name": "Car"
+            "name": "Supplies"
           },
           "amount": 35.04,
           "date": "2023-07-22T11:13:15.007+00:00",
@@ -87,7 +40,7 @@
          "category": {
             "id": 4,
             "color": "#9033FF",
-            "name": "Car"
+            "name": "Supplies"
           },
           "amount": 25.83,
           "date": "2023-07-22T11:13:15.007+00:00",

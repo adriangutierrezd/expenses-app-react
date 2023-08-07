@@ -1,0 +1,28 @@
+{
+    "categories": [
+        {
+            "name": "Food",
+            "color": "#FFA533",
+            "user": 1,
+            "id": 1
+        },
+        {
+            "name": "Car",
+            "color": "#33FF42",
+            "user": 1,
+            "id": 2
+        },
+        {
+            "name": "Supplies",
+            "color": "#33FF42",
+            "user": 1,
+            "id": 4
+        },
+        {
+            "name": "Car",
+            "color": "#33FF42",
+            "user": 2,
+            "id": 3
+        }
+  ]
+}

@@ -1,6 +1,6 @@
 import { Dashboard } from './Components/Dashboard'
 import { Route, Routes, NavLink } from 'react-router-dom'
-import { Menu, UserCircle2, X, Home, CircleDollarSign, Folder, BarChart3 } from 'lucide-react'
+import { Menu, X, Home, CircleDollarSign, Folder, BarChart3 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { CategoriesPage } from './Components/CategoriesPage'
 import { ProfileDropdownMenu } from './Components/ProfileDropdownMenu'
