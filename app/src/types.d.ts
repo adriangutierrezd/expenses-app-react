@@ -1,12 +1,3 @@
-export interface Expense2{
-    category: string,
-    amount: number,
-    color: string,
-    date: Date,
-    user: number,
-    name: string,
-    descripcion: string
-}
 
 export interface ExpenseByCategory {
     category: string,

@@ -4,8 +4,7 @@ import { BarChart } from './BarChart';
 import { useExpenses } from '../hooks/useExpenses';
 import { useEffect, useState } from 'react';
 import { addDays } from "date-fns"
-
-
+import { ExpensesTable } from './ExpensesTable';
 
 interface DateRange{
     from: Date,
@@ -13,7 +12,6 @@ interface DateRange{
   }
 
 export function Dashboard(){
-
 
     const defaultDate = new Date();
     const defaultSelected: DateRange = {
@@ -42,6 +40,7 @@ export function Dashboard(){
             ? <BarChart chartTitle='Last X days' chartId='expenseByCategoryBarTable' seriesName='Amount spent' data={expensesByCategory}/> 
             : 'Seems like you haven`t register any expenses yet...'}
             <h2>Your expenses on detail:</h2>
+            <ExpensesTable data={expenses}/>
         </main>
     )
 }
