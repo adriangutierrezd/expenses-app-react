@@ -4,6 +4,7 @@ import { Menu, X, Home, CircleDollarSign, Folder, BarChart3 } from 'lucide-react
 import { useEffect, useState } from 'react'
 import { CategoriesPage } from './Components/CategoriesPage'
 import { ProfileDropdownMenu } from './Components/ProfileDropdownMenu'
+import { ExpensesPage } from './Components/ExpensesPage'
 
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={handleMenuState} to="#">
+            <NavLink onClick={handleMenuState} to="/expenses">
             <CircleDollarSign />
             Expenses
             </NavLink>
@@ -72,6 +73,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Dashboard/>}/>
       <Route path='/categories' element={<CategoriesPage/>}/>
+      <Route path='/expenses' element={<ExpensesPage/>}/>
 
     </Routes>
 
