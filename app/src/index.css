@@ -85,6 +85,7 @@
     @apply text-3xl;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    margin-bottom: 1rem;
   }
 
   nav ul.open{
@@ -118,6 +119,7 @@
     @apply text-2xl;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    margin-bottom: 1rem;
   }
 
   .button{

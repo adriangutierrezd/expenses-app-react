@@ -47,11 +47,11 @@ const columns: ColumnDef<Expense>[] = [
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem>
-                        <Pencil />
+                        <Pencil size={16} className='mr-2' />
                         Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <Trash2 />
+                        <Trash2 size={16} className='mr-2' />
                         Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>
