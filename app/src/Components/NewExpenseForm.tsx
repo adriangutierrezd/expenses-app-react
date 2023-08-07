@@ -15,8 +15,7 @@ import {
   } from "../../@/components/ui/select"
 
 
-export function NewExpenseForm(){
-
+export function NewExpenseForm({mode}: {mode:string}){
 
     const { categories, getCategories } = useCategories()
 
@@ -52,13 +51,15 @@ export function NewExpenseForm(){
         setName(event.target.name)
     }
 
+    const modeSmall = mode === 'small' ? '' : 'md:col-span-6'
+
     return(
         <form onSubmit={handleSubmit} className='grid grid-cols-12 gap-4'>
-            <Input className='col-span-12 md:col-span-6' type="text" name="name" placeholder="Type your expense name" required maxLength={50} minLength={2} onChange={handleChangeName} />
-            <Input placeholder='Type your expense cost' className='col-span-12 md:col-span-6' type='number' name='amount' step={0.01} min={0.01} required/>
-            <DatePicker classes={'col-span-12 md:col-span-6 w-100'} handleDateChange={handleDateChange} defaultDate={new Date()}/>
+            <Input className={`${modeSmall} col-span-12`} type="text" name="name" placeholder="Type your expense name" required maxLength={50} minLength={2} onChange={handleChangeName} />
+            <Input placeholder='Type your expense cost' className={`${modeSmall} col-span-12`} type='number' name='amount' step={0.01} min={0.01} required/>
+            <DatePicker classes={`col-span-12 ${modeSmall} w-100`} handleDateChange={handleDateChange} defaultDate={new Date()}/>
             <Select required name="category">
-                <SelectTrigger className="col-span-12 md:col-span-6">
+                <SelectTrigger className={`${modeSmall} col-span-12`}>
                     <SelectValue placeholder="Pick a category" />
                 </SelectTrigger>
                 <SelectContent>

@@ -1,10 +1,10 @@
-import { Plus } from 'lucide-react'
 import { DateRangePicker } from './DateRangePicker'
 import { BarChart } from './BarChart';
 import { useExpenses } from '../hooks/useExpenses';
 import { useEffect, useState } from 'react';
 import { addDays } from "date-fns"
 import { ExpensesTable } from './ExpensesTable';
+import { NewExpenseDialog } from './NewExpenseDialog'
 
 interface DateRange{
     from: Date,
@@ -32,8 +32,8 @@ export function Dashboard(){
     return(
         <main>
             <h1>Hi, XXXX</h1>
-            <div className='flex'>
-                <button title='Add a new expense' className='ml-auto button button-primary'><Plus /></button>
+            <div className='flex justify-end'>
+                <NewExpenseDialog/>
             </div>
             <DateRangePicker handleDateRangeChange={handleDateRangeChange}/>
             {expenses.length > 0 
