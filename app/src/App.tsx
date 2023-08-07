@@ -3,7 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom'
 import { Menu, UserCircle2, X, Home, CircleDollarSign, Folder, BarChart3 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { CategoriesPage } from './Components/CategoriesPage'
-
+import { ProfileDropdownMenu } from './Components/ProfileDropdownMenu'
 
 
 function App() {
@@ -63,7 +63,7 @@ function App() {
         </ul>
 
         <Menu className='menu-icon cursor-pointer' onClick={handleMenuState} />
-        <UserCircle2 className='menu-icon cursor-pointer' />
+        <ProfileDropdownMenu/>
 
         
       </nav>
