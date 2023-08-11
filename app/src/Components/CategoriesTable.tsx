@@ -15,6 +15,8 @@ import {
 } from "../../@/components/ui/dropdown-menu"
 
 
+import { HoverCard } from './CustomHoverCard';
+
 const columns: ColumnDef<Category>[] = [
     {
         accessorKey: "name",
@@ -23,11 +25,15 @@ const columns: ColumnDef<Category>[] = [
       {
         accessorKey: "color",
         header: "Color",
+        cell: ({row}) => {
+          return(
+            <HoverCard content={row.original.color}><div className='rounded mr-2' style={{backgroundColor: row.original.color, width: 20, height: 20}}></div></HoverCard>
+          )
+        }
       },
       {
         id: "actions",
         cell: () => {
-            //const exp = row.original
             return (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -39,7 +45,7 @@ const columns: ColumnDef<Category>[] = [
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem>
-                        <Pencil size={16} className='mr-2' />
+                      <Pencil size={16} className='mr-2' />
                         Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem>

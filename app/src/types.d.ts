@@ -20,3 +20,20 @@ export interface Expense{
     date: Date,
     category: Category
 }
+
+export interface ComboboxData{
+    value: string,
+    label: string
+}
+
+
+export interface DateRange{
+    from: Date,
+    to: Date
+}
+
+export interface ExpensesByMonth{
+    month: string,
+    year: number,
+    amount: number
+}

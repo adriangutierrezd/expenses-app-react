@@ -4,7 +4,8 @@
           "category": {
             "id": 1,
             "color": "#FFA533",
-            "name": "Food"
+            "name": "Food",
+            "user": 1
           },
           "amount":345.23,
           "date": "2023-07-22T11:13:15.007+00:00",
@@ -13,10 +14,50 @@
           "description": "General weekly groceries"
        },
        {
+        "category": {
+          "id": 1,
+          "color": "#FFA533",
+          "name": "Food",
+          "user": 1
+        },
+        "amount":345.23,
+        "date": "2023-08-02T11:13:15.007+00:00",
+        "user": 1,
+        "name": "Groceries",
+        "description": "General weekly groceries"
+     },
+     {
+      "category": {
+        "id": 1,
+        "color": "#FFA533",
+        "name": "Food",
+        "user": 1
+      },
+      "amount":3,
+      "date": "2023-08-02T11:13:15.007+00:00",
+      "user": 1,
+      "name": "Groceries",
+      "description": "General weekly groceries"
+      },
+       {
+        "category": {
+          "id": 1,
+          "color": "#FFA533",
+          "name": "Food",
+          "user": 1
+        },
+        "amount": 32.23,
+        "date": "2023-07-01T11:13:15.007+00:00",
+        "user": 1,
+        "name": "Pizza order",
+        "description": null
+     },
+       {
          "category": {
             "id": 2,
             "color": "#33FF42",
-            "name": "Car"
+            "name": "Car",
+            "user": 1
           },
           "amount": 45.23,
           "date": "2023-07-22T11:13:15.007+00:00",
@@ -28,7 +69,8 @@
          "category": {
             "id": 4,
             "color": "#9033FF",
-            "name": "Supplies"
+            "name": "Supplies",
+            "user": 1
           },
           "amount": 35.04,
           "date": "2023-07-22T11:13:15.007+00:00",
@@ -40,7 +82,8 @@
          "category": {
             "id": 4,
             "color": "#9033FF",
-            "name": "Supplies"
+            "name": "Supplies",
+            "user": 1
           },
           "amount": 25.83,
           "date": "2023-07-22T11:13:15.007+00:00",
@@ -52,7 +95,8 @@
          "category": {
             "id": 3,
             "color": "#33FF42",
-            "name": "Car"
+            "name": "Car",
+            "user": 2
           },
           "amount":45.23,
           "date": "2023-07-22T11:13:15.007+00:00",

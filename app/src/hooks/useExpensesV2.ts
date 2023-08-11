@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback , useMemo} from 'react'
 import { expenses as expensesJSON } from '../mocks/expenses.json'
-import { Expense, ExpenseByCategory, Category, ExpensesByMonth } from '../types'
+import { Expense, Category } from '../types'
 
 
 interface Props {
@@ -14,29 +14,22 @@ interface Props {
 export function useExpenses(){
 
     const [expenses, setExpenses] = useState<Array<Expense>>([])
-    const [expensesByCategory, setExpensesByCategory] = useState<Array<ExpenseByCategory>>([])
-    const [expenesByMonth, setExpensesByMonth] = useState<Array<ExpensesByMonth>>([])
-    
-    useEffect(() => {
-        groupExpensesByCategory(expenses)
-        groupExpensesByMonth(expenses)
 
-        console.log(expenses, expenesByMonth, expensesByCategory)
+    const getExpenses = useCallback(({user, initialDate, endDate}: Props) => {
 
-    }, [expenses])
-
-    const getExpenses = ({ user, initialDate, endDate, category }: Props) => {
-
-        const expensesToReturn =  expensesJSON.filter(expense => {
+        const expensesToReturn: Array<Expense> =  expensesJSON.filter(expense => {
             const expenseDate = new Date(expense.date)
             return Number(expense.user) === user && expenseDate >= initialDate && expenseDate <= endDate
         })
+
         setExpenses(expensesToReturn)
-    }
+    }, [])
 
+    const sortedExpenses = useMemo(() => {
+        return expenses
+    }, [expenses])
 
-    const groupExpensesByCategory = (expenses: Expense) => {
-        
+    const expensesByCategory = useMemo(() => {
         const groupExpensesByCategory = new Map()
         expenses.forEach(expense => {
             const expensesMap = groupExpensesByCategory.get(expense.category.id)
@@ -50,11 +43,10 @@ export function useExpenses(){
 
         })  
         
-        setExpensesByCategory(Array.from(groupExpensesByCategory).map(expense => expense[1]))
-    }
+        return Array.from(groupExpensesByCategory).map(expense => expense[1])
+    }, [expenses])
 
-    const groupExpensesByMonth = (expenses: Array<Expense>) => {
-
+    const expensesByMonth = useMemo(() => {
         const expensesByMoth = new Map()
         expenses.forEach(expense => {
             const year = new Date(expense.date).getFullYear()
@@ -80,9 +72,9 @@ export function useExpenses(){
         })
         
 
-        setExpensesByMonth(Array.from(expensesByMoth).map(e => e[1]))
-    }
+        return Array.from(expensesByMoth).map(e => e[1])
+    }, [expenses])
 
-    return { getExpenses, expenses, groupExpensesByCategory, expensesByCategory, expenesByMonth }
+    return { getExpenses, expenses: sortedExpenses, expensesByCategory, expensesByMonth }
 
 }

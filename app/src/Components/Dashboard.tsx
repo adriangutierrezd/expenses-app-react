@@ -1,25 +1,19 @@
 import { DateRangePicker } from './DateRangePicker'
 import { BarChart } from './BarChart';
-import { useExpenses } from '../hooks/useExpenses';
+import { useExpenses } from '../hooks/useExpensesV2';
 import { useEffect, useState } from 'react';
-import { addDays } from "date-fns"
 import { ExpensesTable } from './ExpensesTable';
 import { NewExpenseDialog } from './NewExpenseDialog'
-
-interface DateRange{
-    from: Date,
-    to: Date
-  }
+import { NoExpensesYet } from './NoExpensesYet';
+import { DateRange } from '../types'
+import { defaultSelection } from '../consts'
 
 export function Dashboard(){
 
-    const defaultDate = new Date();
-    const defaultSelected: DateRange = {
-      from: defaultDate,
-      to: addDays(defaultDate, 4)
-    };
+
     const { getExpenses, expenses, expensesByCategory } = useExpenses()
-    const [dateRange, setDateRange] = useState<DateRange>(defaultSelected)
+    const [dateRange, setDateRange] = useState<DateRange>(defaultSelection)
+    const [dateRangeName, setDateRangeName] = useState<string>('')
 
     const handleDateRangeChange = (data: DateRange) => {
         setDateRange(data)
@@ -27,6 +21,7 @@ export function Dashboard(){
 
     useEffect(() => {
         getExpenses({ user: 1, initialDate: dateRange.from, endDate: dateRange.to })
+        setDateRangeName(`From ${new Date(dateRange.from).toLocaleDateString('us-US')} to ${new Date(dateRange.to).toLocaleDateString('us-US')}`)
     }, [dateRange])
 
     return(
@@ -37,8 +32,8 @@ export function Dashboard(){
             </div>
             <DateRangePicker handleDateRangeChange={handleDateRangeChange}/>
             {expenses.length > 0 
-            ? <BarChart chartTitle='Last X days' chartId='expenseByCategoryBarTable' seriesName='Amount spent' data={expensesByCategory}/> 
-            : 'Seems like you haven`t register any expenses yet...'}
+            ? <BarChart chartTitle={dateRangeName} chartId='expenseByCategoryBarTable' seriesName='Amount spent' data={expensesByCategory}/> 
+            : <NoExpensesYet/> }
             <h2>Your expenses on detail:</h2>
             <ExpensesTable data={expenses}/>
         </main>
