@@ -1,0 +1,40 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Api for Expenses App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adriangutierrezd/expenses-app-react.git"
+  },
+  "author": "adriangutierrezd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adriangutierrezd/expenses-app-react/issues"
+  },
+  "homepage": "https://github.com/adriangutierrezd/expenses-app-react#readme",
+  "devDependencies": {
+    "standard": "^17.1.0",
+    "supertest": "^6.3.3"
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "options": {
+      "indent": [
+        "error",
+        4
+      ]
+    }
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.3.1",
+    "express": "4.18.2",
+    "mongoose": "^7.4.3",
+    "mongoose-unique-validator": "^4.0.0"
+  }
+}
