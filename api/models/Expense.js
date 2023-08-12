@@ -8,10 +8,10 @@ const expenseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    category: [{
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
-    }]
+    }
 })
 
 expenseSchema.set('toJSON', {

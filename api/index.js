@@ -10,17 +10,19 @@ app.use(express.json())
 
 // Routers
 const usersRouter = require('./controllers/users')
-
+const categoriesRouter = require('./controllers/categories')
+const expensesRouter = require('./controllers/expenses')
 
 
 // Endpoints
-
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to my API' })
 })
 
 
 app.use('/users', usersRouter)
+app.use('/categories', categoriesRouter)
+app.use('/expenses', expensesRouter)
 
 
 
@@ -29,6 +31,9 @@ app.use((req, res) => {
     res.status(404).send('<h1>Error 404</h1>')
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server listening on port: http://localhost:${PORT}`)
 })
+
+
+module.exports = { app, server }
