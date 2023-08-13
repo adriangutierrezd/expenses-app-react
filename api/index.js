@@ -12,6 +12,7 @@ app.use(express.json())
 const usersRouter = require('./controllers/users')
 const categoriesRouter = require('./controllers/categories')
 const expensesRouter = require('./controllers/expenses')
+const loginRouter = require('./controllers/login')
 
 
 // Endpoints
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter)
 app.use('/categories', categoriesRouter)
 app.use('/expenses', expensesRouter)
+app.use('/login', loginRouter)
 
 
 

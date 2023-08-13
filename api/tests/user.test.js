@@ -57,8 +57,6 @@ describe('creating a new user', () => {
 
 })
 
-
-
 describe('updating an user', () => {
 
     test("works as expected updating it's currency", async () => {
@@ -102,6 +100,52 @@ describe('updating an user', () => {
         const usersAtEnd = await getUsers()
         expect(usersAtEnd).toHaveLength(usersAtStart.length)
     })
+
+})
+
+describe('user sign in', () => {
+
+
+    beforeEach(async () => {
+        await resetUsersForTest()
+    })
+
+    test("is succesful when it's a correct user", async () => {
+
+        const newUser = {
+            username: 'newUser',
+            password: 'newUserPass',
+            currency: 'EUR'
+        }
+
+        await api.post('/users').send(newUser)
+
+        const loginRes = await api.post('/login').send({ username: newUser.username, password: newUser.password })
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+
+        expect(loginRes.body.token).toBeDefined()
+    })
+
+    test('fails when credentials are wrong', async () => {
+        const newUser = {
+            username: 'newUser',
+            password: 'newUserPass',
+            currency: 'EUR'
+        }
+
+        await api.post('/users').send(newUser)
+
+        const loginRes = await api.post('/login').send({ username: newUser.username, password: newUser.password + '1' })
+            .expect(401)
+            .expect('Content-Type', /application\/json/)
+
+
+        expect(loginRes.body.token).toBeUndefined()
+        expect(loginRes.body.message).toBe('Invalid user or password')
+    })
+
 
 })
 

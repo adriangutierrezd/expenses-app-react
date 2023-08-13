@@ -4,9 +4,9 @@
   "description": "Api for Expenses App",
   "main": "index.js",
   "scripts": {
-    "test:user": "NODE_ENV=test PORT=3333 jest --verbose --silent tests/user.test.js",
+    "test:user": "NODE_ENV=test PORT=3333 jest tests/user.test.js",
     "test:category": "NODE_ENV=test PORT=3333 jest --verbose --silent tests/category.test.js",
-    "test:expense": "NODE_ENV=test PORT=3333 jest  tests/expense.test.js",
+    "test:expense": "NODE_ENV=test PORT=3333 jest  --verbose --silent tests/expense.test.js",
     "dev": "node --watch index.js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "bcrypt": "^5.1.0",
     "dotenv": "^16.3.1",
     "express": "4.18.2",
+    "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
     "mongoose-unique-validator": "^4.0.0"
   }
