@@ -30,18 +30,12 @@ const FormSchema = z.object({
   }),
 })
  
-export function DateRangePicker({handleDateRangeChange}) {
+export function DateRangePicker({handleDateRangeChange, defaultSelected}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
  
   const { toast } = useToast()
-
-  const defaultDate = new Date();
-  const defaultSelected: DateRange = {
-    from: defaultDate,
-    to: addDays(defaultDate, 4)
-  };
 
   interface DateRange{
     from: Date,
@@ -114,7 +108,7 @@ export function DateRangePicker({handleDateRangeChange}) {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="range"
-                    defaultMonth={defaultDate}
+                    defaultMonth={defaultSelected.from}
                     selected={range}
                     onSelect={setRange}
                   />

@@ -22,17 +22,20 @@ import {
 interface Props{
     data: Array<ComboboxData>,
     selectMessage: string,
-    commandPlaceHolder: string
+    commandPlaceHolder: string,
+    handleSelectUpdate: Function,
+    defaultSelect: string
 }
 
-export function ComboboxDemo({data, selectMessage, commandPlaceHolder} : Props) {
+export function ComboboxDemo({data, selectMessage, commandPlaceHolder, handleSelectUpdate, defaultSelect} : Props) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const [value, setValue] = React.useState(defaultSelect)
   const [buttonText, setButtonText] = React.useState(selectMessage)
 
   React.useEffect(() => {
 
     if(value != '') setButtonText(data.find(d => d.value == value).label)
+    if(value != '' && value != defaultSelect) handleSelectUpdate(value)
     
   }, [value])
 

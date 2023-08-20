@@ -7,11 +7,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../@/components/ui/dialog"
-import { NewExpenseForm } from "./NewExpenseForm"
+import { ExpensesForm } from "./ExpensesForm"
+import { useExpenses } from "../hooks/useExpenses"
+import { useState } from "react"
 
 export function NewExpenseDialog() {
+
+  const { createExpense } = useExpenses()
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = (state: boolean) => {
+      setOpen(state)
+  }
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button><Plus/></Button>
       </DialogTrigger>
@@ -19,7 +29,7 @@ export function NewExpenseDialog() {
         <DialogHeader>
           <DialogTitle>Add a new expense</DialogTitle>
         </DialogHeader>
-        <NewExpenseForm mode='small'/>
+        <ExpensesForm handleSubmitP={createExpense} handleOpenDialog={handleOpen} mode='small'/>
       </DialogContent>
     </Dialog>
   )

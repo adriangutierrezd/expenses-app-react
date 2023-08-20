@@ -16,8 +16,21 @@ import { NavLink } from "react-router-dom"
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "../../@/components/ui/dropdown-menu"
+
+  import { useUser } from "../hooks/useUser"
   
   export function ProfileDropdownMenu() {
+
+
+    const { set } = useUser()
+
+
+    const handleLogOut = () => {
+      if(window.localStorage.getItem('loggedUser') !== null) window.localStorage.removeItem('loggedUser')
+      window.location.href = '/sign-in'
+      set(null)
+    }
+
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -41,7 +54,7 @@ import { NavLink } from "react-router-dom"
           </NavLink>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogOut}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
           </DropdownMenuItem>

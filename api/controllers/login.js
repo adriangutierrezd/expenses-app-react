@@ -11,7 +11,7 @@ loginRouter.post('/', async (request, response) => {
     const { body } = request
     const { username, password } = body
 
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ username }).populate('categories', { name: 1, color: 1 }).populate('expenses', { name: 1, amount: 1, description: 1, date: 1, category: 1 })
     const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.passwordHash ?? '')
 
     if (!user || !passwordCorrect) {
@@ -29,9 +29,28 @@ loginRouter.post('/', async (request, response) => {
 
     const token = jwt.sign(userForToken, process.env.SECRET_JWT, { expiresIn: 60 * 60 * 24 * 7 })
 
+    let finalExpenses = [...user.expenses]
+
+    if (Array.isArray(user.expenses) && Array.isArray(user.categories)) {
+
+
+        finalExpenses = finalExpenses.map(exp => {
+
+            const categoryId = exp.category.toString()
+            const category = user.categories.find(category => category._id.toString() === categoryId)
+            return { ...exp._doc, id: exp._doc._id, category: category ?? null }
+
+        })
+
+    }
+
     response.send({
         username: user.username,
-        token
+        token,
+        id: user._id,
+        currency: user.currency || null,
+        expenses: finalExpenses,
+        categories: user.categories || []
     })
 
 })

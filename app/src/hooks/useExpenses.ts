@@ -1,42 +1,32 @@
-import { useState, useEffect } from 'react'
-import { expenses as expensesJSON } from '../mocks/expenses.json'
-import { Expense, ExpenseByCategory, Category, ExpensesByMonth } from '../types'
-
-
-interface Props {
-    user: number,
-    initialDate: Date,
-    endDate: Date,
-    category?: Category
-}
+import { useState, useEffect} from 'react'
+import { Expense, CreateExpenseService, EditExpenseService, DateRange } from '../types'
+import { createExpenseService, editExpenseService, deleteExpenseService } from '../services/expensesService'
+import { useUser } from './useUser'
+import { isDateBetween } from '../utils/dates'
 
 
 export function useExpenses(){
 
-    const [expenses, setExpenses] = useState<Array<Expense>>([])
-    const [expensesByCategory, setExpensesByCategory] = useState<Array<ExpenseByCategory>>([])
-    const [expenesByMonth, setExpensesByMonth] = useState<Array<ExpensesByMonth>>([])
-    
+    const { set, user } = useUser()
+    const [expenses, setExpenses] = useState<Array<Expense>>(user.expenses)
+
     useEffect(() => {
-        groupExpensesByCategory(expenses)
-        groupExpensesByMonth(expenses)
+        setExpenses(user.expenses)
+    }, [user.expenses])
 
-        console.log(expenses, expenesByMonth, expensesByCategory)
 
-    }, [expenses])
-
-    const getExpenses = ({ user, initialDate, endDate, category }: Props) => {
-
-        const expensesToReturn =  expensesJSON.filter(expense => {
+    const getExpenses = ({from, to}: DateRange) => {
+        const expensesToReturn: Array<Expense> =  user.expenses.filter((expense: Expense) => {
+            if(from === undefined || to === undefined) return expense
             const expenseDate = new Date(expense.date)
-            return Number(expense.user) === user && expenseDate >= initialDate && expenseDate <= endDate
+
+            return isDateBetween({dateToCheck: expenseDate, from, to})
         })
+
         setExpenses(expensesToReturn)
     }
 
-
-    const groupExpensesByCategory = (expenses: Expense) => {
-        
+    const expensesByCategory = ({expenses}: { expenses: Array<Expense> }) => {
         const groupExpensesByCategory = new Map()
         expenses.forEach(expense => {
             const expensesMap = groupExpensesByCategory.get(expense.category.id)
@@ -50,11 +40,10 @@ export function useExpenses(){
 
         })  
         
-        setExpensesByCategory(Array.from(groupExpensesByCategory).map(expense => expense[1]))
+        return Array.from(groupExpensesByCategory).map(expense => expense[1])
     }
 
-    const groupExpensesByMonth = (expenses: Array<Expense>) => {
-
+    const expensesByMonth = () => {
         const expensesByMoth = new Map()
         expenses.forEach(expense => {
             const year = new Date(expense.date).getFullYear()
@@ -80,9 +69,30 @@ export function useExpenses(){
         })
         
 
-        setExpensesByMonth(Array.from(expensesByMoth).map(e => e[1]))
+        return Array.from(expensesByMoth).map(e => e[1])
     }
 
-    return { getExpenses, expenses, groupExpensesByCategory, expensesByCategory, expenesByMonth }
+    const createExpense = async ({ name, description, amount, date, category, token }: CreateExpenseService ) => {
+        const newExpense = await createExpenseService({ name, description, amount, date, category, token })
+        if(newExpense.status !== 201) throw new Error(newExpense.message)
+        const newUser = {...user, expenses: [...user.expenses, newExpense]}
+        set(newUser)
+    }
+
+    const editExpense = async({ name, description, amount, date, category, token, expenseId } : EditExpenseService) => {
+        const updatedExpense = await editExpenseService({ name, description, amount, date, category, token, expenseId })
+        if(updatedExpense.status !== 200) throw new Error(updatedExpense.message)
+        const newUser = {...user, expenses: user.expenses.map((expense: Expense) => expense.id === expenseId ? updatedExpense : expense)}
+        set(newUser)
+    }
+
+    const deleteExpense = async ({ token, expenseId } : { token: string, expenseId: string }) => {
+        const deletedExpense = await deleteExpenseService({ token, expenseId })
+        if(deletedExpense.status !== 200) throw new Error(deletedExpense.message)
+        const newUser = {...user, expenses: user.expenses.filter((expense: Expense) => expense.id !== expenseId)}
+        set(newUser)
+    }
+
+    return { getExpenses, expenses, expensesByCategory, expensesByMonth, createExpense, editExpense, deleteExpense }
 
 }

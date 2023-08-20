@@ -1,20 +1,28 @@
 import * as echarts from 'echarts'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { ExpenseByCategory } from '../types'
 
 interface Props{
     chartTitle: string,
-    chartId: string,
     seriesName: string,
     data: Array<ExpenseByCategory>
 }
 
-export function BarChart ({ chartTitle, chartId, data, seriesName } : Props) {
+export function BarChart ({ chartTitle, data, seriesName } : Props) {
+
+    const chartRef = useRef(null);
 
     useEffect(() => {
 
-        const myChart = echarts.init(document.getElementById(chartId));
 
+        if (chartRef.current) {
+            // Destruir la instancia anterior antes de inicializar una nueva
+            echarts.dispose(chartRef.current);
+          }
+
+        
+        const myChart = echarts.init(chartRef.current);
+    
         const dataValues = data.map(d => {
             
             return {
@@ -43,12 +51,12 @@ export function BarChart ({ chartTitle, chartId, data, seriesName } : Props) {
                 }
             ]
         });
-    })
+    }, [data])
 
 
 
     return (
-        <article className='rounded aspect-video w-full my-4 p-2 border border-slate-200' id={chartId} style={{height:'500px'}}>
+        <article ref={chartRef} className='rounded aspect-video w-full my-4 p-2 border border-slate-200' style={{height:'500px'}}>
         
         </article>
     )

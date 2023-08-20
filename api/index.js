@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 app.disable('x-powered-by')
 require('./mongo')
@@ -6,7 +7,7 @@ require('./mongo')
 const PORT = process.env.PORT ?? 3000
 
 app.use(express.json())
-//app.use(cors())
+app.use(cors())
 
 // Routers
 const usersRouter = require('./controllers/users')

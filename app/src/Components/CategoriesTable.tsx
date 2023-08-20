@@ -1,19 +1,8 @@
 import { DataTable } from './CustomDatatable';
 import { ColumnDef } from '@tanstack/react-table';
 import { Category } from '../types'
-import { MoreHorizontal, Pencil, Trash2 } from 'lucide-react'
-
-
-
-import { Button } from "../../@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "../../@/components/ui/dropdown-menu"
-
+import { EditCategoryDialog } from './EditCategoryDialog';
+import { DeleteCategoryModal } from './DeleteCategoryModal';
 
 import { HoverCard } from './CustomHoverCard';
 
@@ -33,27 +22,14 @@ const columns: ColumnDef<Category>[] = [
       },
       {
         id: "actions",
-        cell: () => {
+        cell: ({row}) => {
             return (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>
-                      <Pencil size={16} className='mr-2' />
-                        Edit
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Trash2 size={16} className='mr-2' />
-                        Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <span className='flex'>
+
+                  <EditCategoryDialog categoryColor={row.original.color} categoryId={row.original.id} categoryName={row.original.name} dialogHeader={`Edit category ${row.original.name}`}/>
+                  <DeleteCategoryModal categoryId={row.original.id} dialogDescription='This action is irreversible and it will delete this category and all expenses linked to it' dialogHeader={`Are you sure you want to delete ${row.original.name} ?`} />
+
+                </span>
               )
         }
       }

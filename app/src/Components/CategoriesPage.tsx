@@ -1,21 +1,23 @@
-import { NewCategoryForm } from "./NewCategoryForm"
+import { CategoryForm } from "./CategoryForm"
 import { CategoriesTable } from './CategoriesTable'
-import { useCategories } from "../hooks/useCategories"
 import { useEffect } from "react"
-
+import { useUser } from '../hooks/useUser';
+import { useCategories } from "../hooks/useCategories"
 
 export function CategoriesPage(){
 
-    const { categories, getCategories } = useCategories()
-
+    const { user } = useUser()
+    const { categories, getCategories, createCategory} = useCategories()
+    
     useEffect(() => {
-        getCategories({user: 1})
-    }, [])
+        getCategories({categories: user.categories})
+    }, [categories])
+
 
     return(
         <main>
             <h1>Categories</h1>
-            <NewCategoryForm />
+            <CategoryForm handleSubmitP={createCategory} />
             <section className='my-8'>
                 <CategoriesTable data={categories} />
             </section>

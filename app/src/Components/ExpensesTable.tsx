@@ -1,31 +1,9 @@
 import { DataTable } from './CustomDatatable';
 import { ColumnDef } from '@tanstack/react-table';
 import { Expense } from '../types'
-import { MoreHorizontal, Pencil, Trash2 } from 'lucide-react'
-
-
-
-import { Button } from "../../@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "../../@/components/ui/dropdown-menu"
-
-
-import {
-  AlertDialog as AlertDialogTmp,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../../@/components/ui/alert-dialog"
+import { EditExpenseDialog } from './EditExpenseDialog';
+import { DeleteExpenseModal } from './DeleteExpenseModal';
+import { formatDateToDDMMYYYY } from '../utils/dates';
 
 const columns: ColumnDef<Expense>[] = [
     {
@@ -43,49 +21,22 @@ const columns: ColumnDef<Expense>[] = [
       {
         accessorKey: "date",
         header: "Date",
+        cell: ({row}) => {
+          return (
+            <span>{formatDateToDDMMYYYY(new Date(row.original.date))}</span>
+          )
+        }
       },
       {
         id: "actions",
-        cell: () => {
-            //const exp = row.original
-            return (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>
-                        <AlertDialogTmp>
-                        <AlertDialogTrigger asChild>
-                          <Pencil size={16} className='mr-2' />
-                          Edit
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              This action cannot be undone. This will permanently delete your
-                              account and remove your data from our servers.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              Jeje
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialogTmp>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Trash2 size={16} className='mr-2' />
-                        Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )
+        cell: ({row}) => {
+          return (
+              <span className='flex'>
+
+                <EditExpenseDialog mode='' dialogHeader={`Edit ${row.original.name}`} defaultAmount={row.original.amount} defaultCategory={row.original.category.id} defaultName={row.original.name} defaultDescription={row.original.description} defaultDate={row.original.date} expenseId={row.original.id} />
+                <DeleteExpenseModal dialogHeader={`Delete ${row.original.name}`} dialogDescription={`Are you sure you want to delete ${row.original.name}?`} expenseId={row.original.id} />
+              </span>
+            )
         }
       }
 ]

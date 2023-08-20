@@ -11,6 +11,10 @@ const userSchema = new Schema({
     expenses: [{
         type: Schema.Types.ObjectId,
         ref: 'Expense'
+    }],
+    categories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
     }]
 })
 

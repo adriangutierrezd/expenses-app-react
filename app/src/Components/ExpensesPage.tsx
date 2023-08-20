@@ -1,16 +1,18 @@
 // import { useExpenses } from "../hooks/useExpenses"
 import { ExpensesTable } from "./ExpensesTable"
-import { NewExpenseForm } from './NewExpenseForm'
+import { ExpensesForm } from './ExpensesForm'
+import { useExpenses } from "../hooks/useExpenses"
 
 export function ExpensesPage(){
 
+    const { createExpense, expenses } = useExpenses()
 
     return (
         <main>
             <h1>Your expenses</h1>
-            <NewExpenseForm/>
+            <ExpensesForm mode='big' handleSubmitP={createExpense}/>
             <section className="my-8">
-                <ExpensesTable data={[]}/>
+                <ExpensesTable data={expenses}/>
             </section>
         </main>
     )

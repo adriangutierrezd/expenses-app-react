@@ -11,8 +11,10 @@ module.exports = ((request, response, next) => {
         token = authorization.substring(7)
     }
 
+    console.log('Token recibed: ', token)
+
     try {
-        decodedToken = jwt.verify(token, process.env.SECRET_JVT)
+        decodedToken = jwt.verify(token, process.env.SECRET_JWT)
     } catch (error) {
         next(error)
     }
