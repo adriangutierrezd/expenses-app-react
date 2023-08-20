@@ -9,7 +9,7 @@ export const createCategoryService = async({ name, color, token } : { name: stri
     
         const raw = JSON.stringify({name, color});
     
-        const requestOptions = {
+        const requestOptions: RequestInit = {
             method: 'POST',
             headers: myHeaders,
             body: raw,
@@ -32,7 +32,7 @@ export const editCategoryService = async({ name, color, token, categoryId } : { 
 
     const raw = JSON.stringify({name, color});
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'PUT',
         headers: myHeaders,
         body: raw,
@@ -53,7 +53,7 @@ export const deleteCategories = async ({ token, categoryId } : { token: string, 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'DELETE',
         headers: myHeaders,
         redirect: 'follow'

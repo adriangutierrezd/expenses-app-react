@@ -4,7 +4,7 @@
   "description": "Api for Expenses App",
   "main": "index.js",
   "scripts": {
-    "test:user": "NODE_ENV=test PORT=3333 jest tests/user.test.js",
+    "test:user": "NODE_ENV=test PORT=3333 jest --verbose --silent tests/user.test.js",
     "test:category": "NODE_ENV=test PORT=3333 jest --verbose --silent tests/category.test.js",
     "test:expense": "NODE_ENV=test PORT=3333 jest  --verbose --silent tests/expense.test.js",
     "dev": "node --watch index.js"
@@ -21,17 +21,7 @@
   "homepage": "https://github.com/adriangutierrezd/expenses-app-react#readme",
   "devDependencies": {
     "jest": "^29.6.2",
-    "standard": "^17.1.0",
     "supertest": "^6.3.3"
-  },
-  "eslintConfig": {
-    "extends": "standard",
-    "options": {
-      "indent": [
-        "error",
-        4
-      ]
-    }
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

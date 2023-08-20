@@ -17,14 +17,15 @@ export function useCategories(){
         setCategories(categories)
     }
 
-    const createCategory = async ({ name, color, token }: { name: string, color: string, token: string }) => {
+    const createCategory = async ({ name, color, token }: { name: string, color: string, token: string, categoryId?: string }) => {
         const newCategory = await createCategoryService({name, color, token })
         if(newCategory.status !== 201) throw new Error(newCategory.message)
         const newUser = {...user, categories: [...user.categories, newCategory]}
         set(newUser)
     }
 
-    const editCategory = async ({ name, color, token, categoryId }: { name: string, color: string, token: string, categoryId: string }) => {
+    const editCategory = async ({ name, color, token, categoryId }: { name: string, color: string, token: string, categoryId?: string }) => {
+        if(!categoryId) return
         const newCategory = await editCategoryService({name, color, token, categoryId })
         if(newCategory.status !== 200) throw new Error(newCategory.message)
         const actualCategories = [...user.categories]

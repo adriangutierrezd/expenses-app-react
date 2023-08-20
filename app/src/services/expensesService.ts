@@ -9,7 +9,7 @@ export const createExpenseService = async ({ name, description, amount, date, ca
 
     const raw = JSON.stringify({ name, description, amount, date, category });
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
@@ -32,7 +32,7 @@ export const editExpenseService = async ({ name, description, amount, date, cate
 
     const raw = JSON.stringify({ name, description, amount, date, category });
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'PUT',
         headers: myHeaders,
         body: raw,
@@ -52,7 +52,7 @@ export const deleteExpenseService = async ({ token, expenseId }: { token: string
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'DELETE',
         headers: myHeaders,
         redirect: 'follow'

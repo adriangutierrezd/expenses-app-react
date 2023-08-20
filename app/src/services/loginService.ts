@@ -11,7 +11,7 @@ export const loginService = async({ username, password } : Props) => {
 
     const raw = JSON.stringify({ username, password });
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'POST',
         headers: myHeaders,
         body: raw,

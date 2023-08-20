@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -23,14 +23,23 @@ import {
 } from "../../@/components/ui/popover"
 import { useToast } from "../../@/components/ui/use-toast"
 import { Toaster } from "../../@/components/ui/toaster"
+import { DateRange } from "../types"
  
 const FormSchema = z.object({
   dob: z.date({
     required_error: "A date of birth is required.",
   }),
 })
+
+interface Props{
+  handleDateRangeChange: (data: DateRange) => void,
+  defaultSelected: {
+    from: Date,
+    to: Date
+  }
+}
  
-export function DateRangePicker({handleDateRangeChange, defaultSelected}) {
+export function DateRangePicker({handleDateRangeChange, defaultSelected}: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -61,7 +70,7 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}) {
 
 
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if(range === undefined || range.to === undefined || range.from === undefined){
@@ -75,6 +84,11 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}) {
 
     handleDateRangeChange(range)
     return range
+  }
+
+
+  const handleSelect = (event: DateRange) => {
+    console.log(event)
   }
 
   return (
@@ -110,7 +124,7 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}) {
                     mode="range"
                     defaultMonth={defaultSelected.from}
                     selected={range}
-                    onSelect={setRange}
+                    onSelect={handleSelect}
                   />
                 </PopoverContent>
               </Popover>

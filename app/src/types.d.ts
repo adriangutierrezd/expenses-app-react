@@ -45,7 +45,8 @@ export interface CreateExpenseService{
     amount: number, 
     date: Date, 
     category: string, 
-    token: string
+    token: string,
+    expenseId?: string
 }
 
 export interface EditExpenseService{
@@ -55,7 +56,7 @@ export interface EditExpenseService{
     date: Date,
     category: string,
     token: string,
-    expenseId: string
+    expenseId?: string
 }
 
 export interface CustomSelectItem{

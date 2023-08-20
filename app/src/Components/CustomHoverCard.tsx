@@ -6,7 +6,7 @@ import {
   
 
 interface Props {
-    children: Element,
+    children: React.ReactNode,
     content: string
 }
 

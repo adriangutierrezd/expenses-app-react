@@ -5,7 +5,6 @@ import { Loader2 } from "lucide-react"
 import { getErrorMessage } from '../utils/errors'
 import { useUser } from "../hooks/useUser"
 import { toast } from "../../@/components/ui/use-toast"
-import { Category } from "../types"
 
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
     defaultName?: string, 
     defaultColor?: string, 
     categoryId?: string, 
-    handleSubmitP: ({ name, color, token, categoryId }: { name: string, color: string, token: string, categoryId?:string }) => Promise<Category>,
+    handleSubmitP: ({ name, color, token, categoryId }: { name: string, color: string, token: string, categoryId?:string }) => Promise<void>,
     handleOpenDialog?: (state: boolean) => void 
 
 }

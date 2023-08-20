@@ -6,19 +6,22 @@ import { getErrorMessage } from "../utils/errors";
 import { useToast } from "../../@/components/ui/use-toast"
 
 
+interface CurrencyOption {label: string, value: string}
+
 export function SettingsPage(){
 
     const {user, set} = useUser()
-    const currenciesRaw = getCurrencies()
+    const currenciesRaw : Record<string, string> = getCurrencies()
     const keys = Object.keys(currenciesRaw)
     const { toast } = useToast()
 
     const defaultCurrency = user.currency ?? null
 
-    const currenciesFormatted = []
-    keys.forEach(key => {
-        const label = `(${key}) - ${currenciesRaw[key]}`
-        const currencyObj = { label, value: key}
+    const currenciesFormatted: Array<CurrencyOption> = []
+    keys.forEach((k: string) => {
+
+        const label = `(${k}) - ${currenciesRaw[k]}`
+        const currencyObj = { label, value: k}
         currenciesFormatted.push(currencyObj)
     })
 

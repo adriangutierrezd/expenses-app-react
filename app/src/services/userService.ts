@@ -1,7 +1,6 @@
 const BASE_URL = 'http://localhost:3000/users'
-
 interface Props {
-    data: Object<any>,
+    data?: object,
     token: string,
     id: string
 }
@@ -13,7 +12,7 @@ export const updateUserService = async({ data, token, id } : Props) => {
 
     const raw = JSON.stringify({ ...data });
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'PUT',
         headers: myHeaders,
         body: raw,
@@ -34,7 +33,7 @@ export const deleteUserService = async({ token, id } : Props) => {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", `Bearer ${token}`);
     
-        const requestOptions = {
+        const requestOptions: RequestInit = {
             method: 'DELETE',
             headers: myHeaders,
             redirect: 'follow'

@@ -13,7 +13,7 @@ export const changePasswordService = async({ password, token, id } : Props) => {
 
     const raw = JSON.stringify({ password });
 
-    const requestOptions = {
+    const requestOptions: RequestInit = {
         method: 'PUT',
         headers: myHeaders,
         body: raw,

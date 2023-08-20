@@ -9,7 +9,6 @@ import CustomSelect from './CustomSelect'
 import { useToast } from "../../@/components/ui/use-toast"
 import { Loader2 } from "lucide-react"
 import { getErrorMessage } from '../utils/errors'
-import { Expense } from '../types'
 import { SelectCategoryOption } from './SelectCategoryOption'
 
 interface CategoriesList {
@@ -26,7 +25,7 @@ interface Props{
     defaultDescription?: string,
     defaultCategory?: string,
     expenseId?: string,
-    handleSubmitP: ({ name, amount, token, category, description, date, expenseId }: { name: string, description?: string, token: string, category?:string, amount: number, date: Date, expenseId?:string }) => Promise<Expense>,
+    handleSubmitP: ({ name, amount, token, category, description, date, expenseId }: { name: string, description?: string, token: string, category?:string, amount: number, date: Date, expenseId?:string }) => Promise<void>,
     handleOpenDialog?: (state: boolean) => void 
 }
 

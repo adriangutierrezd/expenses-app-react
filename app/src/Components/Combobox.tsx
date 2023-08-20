@@ -34,7 +34,8 @@ export function ComboboxDemo({data, selectMessage, commandPlaceHolder, handleSel
 
   React.useEffect(() => {
 
-    if(value != '') setButtonText(data.find(d => d.value == value).label)
+    const dataAux = data.find(d => d.value == value)
+    if(value != '') setButtonText(dataAux === undefined ? '' : dataAux.label)
     if(value != '' && value != defaultSelect) handleSelectUpdate(value)
     
   }, [value])
