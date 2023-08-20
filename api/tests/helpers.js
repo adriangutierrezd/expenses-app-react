@@ -22,8 +22,8 @@ const getCategories = async () => {
 
 const resetUsersForTest = async () => {
     await User.deleteMany({})
-    const user = new User({ username: 'defaultUser', password: 'defaultPassword', currency: 'USD' })
-    await user.save()
+    const user = await api.post('/users').send({ username: 'defaultUser', password: 'defaultPassword', currency: 'USD' })
+    return user['_body']
 }
 
 const deleteAllCategories = async () => {

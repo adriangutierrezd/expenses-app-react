@@ -1,4 +1,3 @@
-const User = require('../models/User')
 const { server } = require('../index')
 const { mongoose } = require('../mongo')
 const { api, getUsers, resetUsersForTest } = require('./helpers')
@@ -144,6 +143,61 @@ describe('user sign in', () => {
 
         expect(loginRes.body.token).toBeUndefined()
         expect(loginRes.body.message).toBe('Invalid user or password')
+    })
+
+
+})
+
+describe('deleting an user', () => {
+
+    test('works fine when deleting an existing user', async () => {
+
+        const res = await resetUsersForTest()
+
+        const usersAtStart = await getUsers()
+
+        await api.delete(`/users/${res.id}`)
+            .set('Authorization', `Bearer ${res.token}`)
+            .expect(200)
+
+        const usersAtEnd = await getUsers()
+        const foundUser = usersAtEnd.find(us => us.username === 'defaultUser')
+        expect(foundUser).toBeUndefined()
+        expect(usersAtEnd).toHaveLength(usersAtStart.length - 1)
+
+    })
+
+    test('fails when token is missing', async () => {
+        const res = await resetUsersForTest()
+
+        const usersAtStart = await getUsers()
+
+        await api.delete(`/users/${res.id}`)
+            .expect(401)
+
+        const usersAtEnd = await getUsers()
+        expect(usersAtEnd).toHaveLength(usersAtStart.length)
+    })
+
+    test('fails when token does not belong to user', async () => {
+        const res = await resetUsersForTest()
+        const newUser = {
+            username: 'newUser',
+            password: 'newUserPass',
+            currency: 'EUR'
+        }
+
+        const newUserCreated = await api.post('/users').send(newUser)
+        const newUserToken = newUserCreated.body.token
+
+        const usersAtStart = await getUsers()
+
+        await api.delete(`/users/${res.id}`)
+            .set('Authorization', `Bearer ${newUserToken}`)
+            .expect(401)
+
+        const usersAtEnd = await getUsers()
+        expect(usersAtEnd).toHaveLength(usersAtStart.length)
     })
 
 

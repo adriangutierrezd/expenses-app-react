@@ -1,6 +1,11 @@
 const usersRouter = require('express').Router()
 const User = require('../models/User')
+const Category = require('../models/Category')
+const Expense = require('../models/Expense')
 const bcrypt = require('bcrypt')
+const userExtractor = require('../middleware/userExtractor')
+const generateToken = require('../utils/tokenUtils').generateToken
+
 
 usersRouter.get('/', async (request, response) => {
     const users = await User.find({})
@@ -31,10 +36,10 @@ usersRouter.post('/', async (request, response) => {
             currency,
             passwordHash
         })
-
         const savedUser = await user.save()
+        const token = generateToken({ id: savedUser._id, username: savedUser.username })
 
-        response.status(201).json(savedUser)
+        response.status(201).json({ ...savedUser._doc, token, id: savedUser._id })
     } catch (error) {
 
         if (error.message.includes('expected `username` to be unique')) {
@@ -85,6 +90,26 @@ usersRouter.put('/:id', async (request, response) => {
 
         response.status(500).json(error)
     }
+
+
+})
+
+usersRouter.delete('/:id', userExtractor, async (request, response, next) => {
+
+    const { userId: user } = request
+    if (request.params.id.toString() !== user.toString()) {
+        response.status(401).json({ message: 'Unauthorized' })
+        return
+    }
+
+    await Expense.deleteMany({ user: request.params.id })
+    await Category.deleteMany({ user: request.params.id })
+
+    User.findByIdAndDelete(request.params.id).then(res => {
+        response.status(200).json({ message: 'Account deleted' })
+    }).catch(err => {
+        next(err)
+    })
 
 
 })

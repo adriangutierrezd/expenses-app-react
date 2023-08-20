@@ -3,7 +3,7 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
-
+const generateToken = require('../utils/tokenUtils').generateToken
 
 
 loginRouter.post('/', async (request, response) => {
@@ -21,13 +21,7 @@ loginRouter.post('/', async (request, response) => {
         return
     }
 
-    const userForToken = {
-        id: user._id,
-        name: user.name,
-        username: user.username
-    }
-
-    const token = jwt.sign(userForToken, process.env.SECRET_JWT, { expiresIn: 60 * 60 * 24 * 7 })
+    const token = generateToken({ id: user._id, username: user.username })
 
     let finalExpenses = [...user.expenses]
 
