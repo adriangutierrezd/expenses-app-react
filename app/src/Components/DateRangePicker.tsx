@@ -81,7 +81,7 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}: Props)
       return
     }
 
-
+    setRange(range)
     handleDateRangeChange(range)
     return range
   }

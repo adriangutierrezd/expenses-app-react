@@ -40,11 +40,11 @@ export interface ExpensesByMonth{
 }
 
 export interface CreateExpenseService{
-    name: string, 
-    description?: string|null, 
-    amount: number, 
-    date: Date, 
-    category: string, 
+    name: string,
+    description?: string|null,
+    amount: number,
+    date: Date,
+    category: string,
     token: string,
     expenseId?: string
 }

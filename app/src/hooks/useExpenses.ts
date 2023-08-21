@@ -1,5 +1,5 @@
 import { useState, useEffect} from 'react'
-import { Expense, CreateExpenseService, EditExpenseService, DateRange } from '../types'
+import { Expense, CreateExpenseService, DateRange } from '../types'
 import { createExpenseService, editExpenseService, deleteExpenseService } from '../services/expensesService'
 import { useUser } from './useUser'
 import { isDateBetween } from '../utils/dates'
@@ -79,7 +79,7 @@ export function useExpenses(){
         set(newUser)
     }
 
-    const editExpense = async({ name, description, amount, date, category, token, expenseId } : EditExpenseService) => {
+    const editExpense = async({ name, description, amount, date, category, token, expenseId } : CreateExpenseService & { expenseId: string }) => {
         const updatedExpense = await editExpenseService({ name, description, amount, date, category, token, expenseId })
         if(updatedExpense.status !== 200) throw new Error(updatedExpense.message)
         const newUser = {...user, expenses: user.expenses.map((expense: Expense) => expense.id === expenseId ? updatedExpense : expense)}

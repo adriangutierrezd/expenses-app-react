@@ -8,7 +8,7 @@ export function useUserReducer(){
 
     const [state, dispatch] = useReducer(userReducer, userInitialState)
 
-    const set = (user: User) => dispatch({ type: 'SET', payload: user });
+    const set = (user : object) => dispatch({ type: 'SET', payload: user });
 
     return { state, set }
 }

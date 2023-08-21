@@ -45,7 +45,7 @@ export function NewExpenseForm({mode}: {mode:string}){
 
 
     const [name, setName] = useState<string>('')
-    const [date, setDate] = useState<Date | null>(new Date())
+    const [date, setDate] = useState<Date>(new Date())
     const [description, setDescription] = useState<string | null>(null)
     const [amount, setAmount] = useState<number>(0.0)
     const [category, setCategory] = useState('')
