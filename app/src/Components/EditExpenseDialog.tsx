@@ -42,7 +42,7 @@ export function EditExpenseDialog({ dialogHeader, defaultAmount, defaultCategory
                 <DialogHeader>
                     <DialogTitle>{dialogHeader}</DialogTitle>
                 </DialogHeader>
-                <ExpensesForm handleSubmitP={editExpense} expenseId={expenseId} defaultAmount={defaultAmount} defaultCategory={defaultCategory} defaultName={defaultName} defaultDescription={defaultDescription} defaultDate={new Date(defaultDate)} handleOpenDialog={handleOpen} />
+                <ExpensesForm mode='' handleSubmitP={editExpense} expenseId={expenseId} defaultAmount={defaultAmount} defaultCategory={defaultCategory} defaultName={defaultName} defaultDescription={defaultDescription} defaultDate={new Date(defaultDate)} handleOpenDialog={handleOpen} />
             </DialogContent>
         </Dialog>
     )

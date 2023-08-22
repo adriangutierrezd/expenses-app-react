@@ -10,6 +10,7 @@ import { useToast } from "../../@/components/ui/use-toast"
 import { Loader2 } from "lucide-react"
 import { getErrorMessage } from '../utils/errors'
 import { SelectCategoryOption } from './SelectCategoryOption'
+import { CreateExpenseService } from '../types'
 
 interface CategoriesList {
     text: JSX.Element,
@@ -25,7 +26,7 @@ interface Props{
     defaultDescription?: string,
     defaultCategory?: string,
     expenseId?: string,
-    handleSubmitP: ({ name, amount, token, category, description, date, expenseId }: { name: string, description?: string, token: string, category?:string, amount: number, date: Date, expenseId?:string }) => Promise<void>,
+    handleSubmitP: ({ name, amount, token, category, description, date, expenseId }: CreateExpenseService & { expenseId: string }) => Promise<void>,
     handleOpenDialog?: (state: boolean) => void 
 }
 
@@ -72,6 +73,7 @@ export function ExpensesForm({mode, expenseId, defaultAmount, defaultCategory, d
         try{
             if(date === undefined) throw new Error('You must select a date')
             if(category === '') throw new Error('You must select a category')
+            if(expenseId === undefined) expenseId = ''
             await handleSubmitP({ name, amount, token: user.token, category, description, date, expenseId })
             toast({
                 variant: "default",

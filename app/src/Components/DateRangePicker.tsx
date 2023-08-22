@@ -87,10 +87,6 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}: Props)
   }
 
 
-  const handleSelect = (event: DateRange) => {
-    console.log(event)
-  }
-
   return (
     <>
     <Form {...form}>
@@ -124,7 +120,6 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}: Props)
                     mode="range"
                     defaultMonth={defaultSelected.from}
                     selected={range}
-                    onSelect={handleSelect}
                   />
                 </PopoverContent>
               </Popover>
