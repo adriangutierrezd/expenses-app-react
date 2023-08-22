@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/expenses'
+const BASE_URL = '/api/expenses'
 import { CreateExpenseService, EditExpenseService } from '../types'
 
 export const createExpenseService = async ({ name, description, amount, date, category, token }: CreateExpenseService) => {

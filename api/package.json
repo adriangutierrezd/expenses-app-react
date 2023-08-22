@@ -7,7 +7,8 @@
     "test:user": "NODE_ENV=test PORT=3333 jest --verbose --silent tests/user.test.js",
     "test:category": "NODE_ENV=test PORT=3333 jest --verbose --silent tests/category.test.js",
     "test:expense": "NODE_ENV=test PORT=3333 jest  --verbose --silent tests/expense.test.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "start": "NODE_ENV=production node index.js"
   },
   "repository": {
     "type": "git",

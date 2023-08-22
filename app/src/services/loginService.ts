@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/login'
+const BASE_URL = '/api/login'
 
 interface Props {
     username: string,

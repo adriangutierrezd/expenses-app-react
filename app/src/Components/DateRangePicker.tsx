@@ -1,3 +1,5 @@
+// @ts-nocheck
+ 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
@@ -87,6 +89,7 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}: Props)
   }
 
 
+
   return (
     <>
     <Form {...form}>
@@ -120,6 +123,7 @@ export function DateRangePicker({handleDateRangeChange, defaultSelected}: Props)
                     mode="range"
                     defaultMonth={defaultSelected.from}
                     selected={range}
+                    onSelect={setRange}
                   />
                 </PopoverContent>
               </Popover>

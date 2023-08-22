@@ -9,7 +9,9 @@
     "app"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build --workspace=app",
+    "start": "npm run start --workspace=api",
+    "dev:api": "npm run build --workspace=app && npm run dev -- workspace=api"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,4 @@
-const BASE_URL = 'http://localhost:3000/categories'
-
+const BASE_URL = '/api/categories'
 
 export const createCategoryService = async({ name, color, token } : { name: string, color: string, token: string }) => {
     

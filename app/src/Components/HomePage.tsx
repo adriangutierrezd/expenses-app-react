@@ -34,7 +34,7 @@ export function HomePage(){
             </div>
 
             <DateRangePicker defaultSelected={dateRange} handleDateRangeChange={handleDateRangeChange}/>
-            {expenses.length > 0 
+            {expenses?.length > 0 
             ? <BarChart chartTitle={dateRangeName} seriesName='Amount spent' data={expensesByCategory({ expenses })}/> 
             : <NoExpensesYet/> }
 
